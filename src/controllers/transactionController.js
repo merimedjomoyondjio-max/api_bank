@@ -11,6 +11,7 @@ exports.deposit = async (req, res) => {
     const accountId = req.params.id;
 
     if (!amount || amount <= 0) {
+      await transaction.rollback();
       return res.status(400).json({
         success: false,
         message: 'Montant invalide'
@@ -67,6 +68,7 @@ exports.withdraw = async (req, res) => {
     const accountId = req.params.id;
 
     if (!amount || amount <= 0) {
+      await transaction.rollback();
       return res.status(400).json({
         success: false,
         message: 'Montant invalide'
@@ -132,6 +134,7 @@ exports.transfer = async (req, res) => {
     const fromAccountId = req.params.id;
 
     if (!amount || amount <= 0) {
+      await transaction.rollback();
       return res.status(400).json({
         success: false,
         message: 'Montant invalide'

@@ -2,14 +2,22 @@
 const path = require('path');
 const fs = require('fs');
 
-const dataDir = path.join(__dirname, '../../data');
-if (!fs.existsSync(dataDir)) {
-  fs.mkdirSync(dataDir);
+const isTest = process.env.NODE_ENV === 'test';
+
+let storage;
+if (isTest) {
+  storage = ':memory:';
+} else {
+  const dataDir = path.join(__dirname, '../../data');
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir, { recursive: true });
+  }
+  storage = path.join(dataDir, 'database.sqlite');
 }
 
 const sequelize = new Sequelize({
   dialect: 'sqlite',
-  storage: path.join(dataDir, 'database.sqlite'),
+  storage,
   logging: false,
   define: {
     timestamps: true,

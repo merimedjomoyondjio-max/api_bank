@@ -121,6 +121,7 @@ exports.closeAccount = async (req, res) => {
     });
 
     if (!account) {
+      await transaction.rollback();
       return res.status(404).json({
         success: false,
         message: 'Compte non trouvé'
@@ -128,6 +129,7 @@ exports.closeAccount = async (req, res) => {
     }
 
     if (account.balance > 0) {
+      await transaction.rollback();
       return res.status(400).json({
         success: false,
         message: 'Impossible de fermer un compte avec un solde positif'
