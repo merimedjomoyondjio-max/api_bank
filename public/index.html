@@ -961,7 +961,7 @@ function showApp(){
   document.getElementById('auth').classList.add('hidden');
   document.getElementById('app').classList.remove('hidden');
   updateSidebar();
-  if(S.user.role==='admin') document.querySelectorAll('.admin-section').forEach(el=>el.classList.remove('hidden'));
+  document.querySelectorAll('.admin-section').forEach(el=>el.classList.toggle('hidden', S.user.role!=='admin'));
   nav('dashboard');
   ri();
 }
