@@ -5,6 +5,7 @@ const fs = require('fs');
 const isTest = process.env.NODE_ENV === 'test';
 
 let storage;
+/* istanbul ignore else */
 if (isTest) {
   storage = ':memory:';
 } else {

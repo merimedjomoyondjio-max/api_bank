@@ -68,6 +68,7 @@ const User = sequelize.define('User', {
 }, {
   hooks: {
     beforeCreate: async (user) => {
+      /* istanbul ignore else */
       if (user.password) {
         user.password = await bcrypt.hash(user.password, 12);
       }

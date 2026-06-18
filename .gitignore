@@ -6,3 +6,4 @@ node_modules/
 *.sqlite3
 data/*.sqlite
 data/*.sqlite3
+coverage/
